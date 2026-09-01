@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rashan L Barack — Field Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --forest-deep:   #16241d;
+    --forest:        #1e3327;
+    --parchment:     #efe8d6;
+    --parchment-dim: #e2d9c2;
+    --brass:         #b8863f;
+    --brass-bright:  #d4a24c;
+    --ink:           #1a1a17;
+    --ink-soft:      #4a4638;
+    --glass-line:    rgba(239,232,214,0.14);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--forest-deep);
+    color:var(--parchment);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--brass); color:var(--forest-deep); }
+
+  a{ color:inherit; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- texture ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(22,36,29,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--glass-line);
+  }
+  header .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:68px;
+  }
+  .brandmark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; letter-spacing:0.12em;
+    color:var(--brass-bright); text-transform:uppercase;
+  }
+  nav ul{ list-style:none; display:flex; gap:28px; }
+  nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    text-decoration:none; color:var(--parchment-dim);
+    position:relative; padding-bottom:4px;
+    transition:color .25s ease;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:var(--brass-bright); transition:width .3s ease;
+  }
+  nav a:hover{ color:var(--parchment); }
+  nav a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:68px;
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(212,162,76,0.10), transparent 55%),
+      linear-gradient(180deg, var(--forest-deep), var(--forest) 130%);
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em;
+    color:var(--brass-bright); text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--brass-bright); display:inline-block; }
+  h1{
+    font-family:'Fraunces', serif; font-weight:600; font-style:normal;
+    font-size:clamp(40px, 5.4vw, 68px); line-height:1.04; letter-spacing:-0.01em;
+    color:var(--parchment); margin-bottom:22px;
+  }
+  h1 em{ font-style:italic; color:var(--brass-bright); font-weight:500; }
+  .hero-desc{
+    font-size:17px; color:var(--parchment-dim); max-width:46ch; margin-bottom:32px;
+  }
+  .tags{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:36px; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.04em;
+    padding:6px 12px; border:1px solid var(--glass-line); border-radius:2px;
+    color:var(--parchment-dim);
+  }
+  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:14px 26px; text-decoration:none; display:inline-block;
+    border-radius:2px; transition:all .25s ease;
+  }
+  .btn-primary{ background:var(--brass-bright); color:var(--forest-deep); }
+  .btn-primary:hover{ background:var(--parchment); }
+  .btn-ghost{ border:1px solid var(--glass-line); color:var(--parchment); }
+  .btn-ghost:hover{ border-color:var(--brass-bright); color:var(--brass-bright); }
+
+  /* specimen case frame around hero photo */
+  .case{
+    position:relative; aspect-ratio:3/4; border:1px solid var(--glass-line);
+    padding:14px; background:linear-gradient(160deg, rgba(239,232,214,0.04), transparent);
+  }
+  .case::before, .case::after{
+    content:''; position:absolute; width:16px; height:16px;
+    border:1.5px solid var(--brass-bright);
+  }
+  .case::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .case::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .case img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(0.92) contrast(1.03); }
+  .case-label{
+    position:absolute; left:26px; bottom:-14px; background:var(--parchment);
+    color:var(--ink); font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:0.08em; padding:6px 12px; text-transform:uppercase;
+  }
+
+  section{ position:relative; padding:120px 0; }
+  .section-head{ margin-bottom:56px; max-width:640px; }
+  .index-no{
+    font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); font-size:13px;
+    letter-spacing:0.14em; display:block; margin-bottom:12px;
+  }
+  h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(30px,3.4vw,42px);
+    color:var(--parchment); letter-spacing:-0.01em;
+  }
+  .section-sub{ color:var(--parchment-dim); margin-top:14px; font-size:15.5px; max-width:56ch; }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  .about-grid p{ color:var(--parchment-dim); margin-bottom:16px; font-size:16px; }
+  .about-grid p strong{ color:var(--parchment); font-weight:600; }
+  .stat-row{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
+  .stat{ border-top:1px solid var(--glass-line); padding-top:14px; }
+  .stat b{
+    font-family:'Fraunces', serif; font-size:32px; color:var(--brass-bright); display:block; font-weight:600;
+  }
+  .stat span{ font-size:12.5px; color:var(--parchment-dim); font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
+
+  /* ---------- catalog / skills ---------- */
+  .catalog{
+    background:var(--parchment); color:var(--ink); border-radius:2px;
+    padding:56px 0;
+  }
+  .catalog .index-no{ color:var(--brass); }
+  .catalog h2{ color:var(--ink); }
+  .catalog .section-sub{ color:var(--ink-soft); }
+  .card-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:rgba(26,26,23,0.14); border:1px solid rgba(26,26,23,0.14);
+  }
+  .card{
+    background:var(--parchment); padding:26px 24px; min-height:150px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:background .25s ease;
+  }
+  .card:hover{ background:var(--parchment-dim); }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .card-no{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--brass); letter-spacing:0.06em; }
+  .card-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--ink-soft);
+    border:1px solid rgba(26,26,23,0.22); padding:2px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .card h3{
+    font-family:'Fraunces', serif; font-size:20px; font-weight:600; margin-top:20px; color:var(--ink);
+  }
+  .card p{ font-size:13px; color:var(--ink-soft); margin-top:6px; }
+
+  /* ---------- fieldwork / achievements ---------- */
+  .field-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
+  .field-item{ border:1px solid var(--glass-line); }
+  .field-photo{ aspect-ratio:4/5; overflow:hidden; position:relative; }
+  .field-photo img{
+    width:100%; height:100%; object-fit:cover; filter:saturate(0.9) contrast(1.02);
+    transition:transform .5s ease;
+  }
+  .field-item:hover .field-photo img{ transform:scale(1.04); }
+  .field-tag{
+    position:absolute; top:14px; left:14px; background:var(--forest-deep);
+    color:var(--brass-bright); font-family:'IBM Plex Mono', monospace; font-size:10px;
+    letter-spacing:0.08em; padding:5px 10px; text-transform:uppercase; border:1px solid var(--glass-line);
+  }
+  .field-cap{ padding:18px 20px 22px; }
+  .field-cap h4{ font-family:'Fraunces', serif; font-size:17px; font-weight:600; color:var(--parchment); margin-bottom:6px; }
+  .field-cap p{ font-size:13.5px; color:var(--parchment-dim); }
+
+  /* ---------- education timeline ---------- */
+  .timeline{ border-top:1px solid var(--glass-line); }
+  .tline-row{
+    display:grid; grid-template-columns:140px 1fr; gap:32px;
+    padding:28px 0; border-bottom:1px solid var(--glass-line);
+  }
+  .tline-mark{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--brass-bright); letter-spacing:0.06em; }
+  .tline-row h4{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; color:var(--parchment); margin-bottom:6px; }
+  .tline-row p{ color:var(--parchment-dim); font-size:14.5px; }
+
+  /* ---------- contact ---------- */
+  .contact{
+    text-align:center; padding-bottom:80px;
+  }
+  .contact h2{ margin:0 auto 18px; }
+  .contact .section-sub{ margin:0 auto 40px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+  .clink{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase;
+    border:1px solid var(--glass-line); padding:14px 24px; text-decoration:none; color:var(--parchment);
+    transition:all .25s ease;
+  }
+  .clink:hover{ border-color:var(--brass-bright); color:var(--brass-bright); }
+
+  footer{
+    border-top:1px solid var(--glass-line); padding:28px 0; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--parchment-dim); letter-spacing:0.04em;
+  }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .field-item:hover .field-photo img{ transform:none; }
+  }
+
+  @media (max-width: 860px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .case{ max-width:340px; margin:0 auto; }
+    .about-grid{ grid-template-columns:1fr; gap:36px; }
+    .card-grid{ grid-template-columns:1fr 1fr; }
+    .field-grid{ grid-template-columns:1fr; }
+    nav ul{ display:none; }
+  }
+  @media (max-width: 520px){
+    .card-grid{ grid-template-columns:1fr; }
+    .tline-row{ grid-template-columns:1fr; gap:8px; }
+    .wrap{ padding:0 20px; }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="wrap">
+    <div class="brandmark">Field Catalog / No. 001</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#catalog">Skills</a></li>
+        <li><a href="#fieldwork">Fieldwork</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Specimen 001 — Analyst / Researcher</div>
+      <h1>Rashan L Barack<br>documents patterns in <em>data</em>, <em>systems</em> &amp; <em>security</em>.</h1>
+      <p class="hero-desc">Applied Statistics graduate (Maasai Mara University) trained further in Cloud Computing, Cybersecurity and Python through ALX Africa. I collect, examine and make sense of data the way a field researcher catalogs a specimen — carefully, and with evidence.</p>
+      <div class="tags">
+        <span class="tag">Data Analysis</span>
+        <span class="tag">Cyber Security</span>
+        <span class="tag">Cloud Computing</span>
+        <span class="tag">Python</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="#catalog">View skill catalog</a>
+      </div>
+    </div>
+    <div>
+      <div class="case">
+        <img src="profile.jpg" alt="Portrait photo">
+        <div class="case-label">Specimen — Analyst, b. Kenya</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="index-no">§ 01 — Field Notes</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I hold a <strong>Bachelor's degree in Applied Statistics (with Computing)</strong> from Maasai Mara University, where my final-year research involved hands-on data collection in the field.</p>
+        <p>Beyond the degree, I trained with <strong>ALX Africa</strong> across Cloud Computing, Cybersecurity, and Python Programming — building practical, industry-facing skills to go with the academic foundation.</p>
+        <p>I work comfortably across statistical tools (SPSS, JASP, MATLAB), engineering software (ANSYS, CAD), and code (Python, C++), with a particular strength in <strong>data analysis</strong>.</p>
+      </div>
+      <div>
+        <div class="stat-row">
+          <div class="stat"><b>B.Sc.</b><span>Applied Statistics, Maasai Mara University</span></div>
+          <div class="stat"><b>3</b><span>ALX Africa programmes completed</span></div>
+          <div class="stat"><b>10+</b><span>Tools &amp; platforms across data, cloud &amp; engineering</span></div>
+          <div class="stat"><b>01</b><span>Diploma in Cyber Security</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog" class="catalog">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="index-no">§ 02 — Catalog</span>
+      <h2>Skills &amp; Tools</h2>
+      <p class="section-sub">Each entry logged the way a specimen is logged: what it is, and where it's filed.</p>
+    </div>
+    <div class="card-grid reveal">
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 01</span><span class="card-tag">Data</span></div>
+        <div><h3>Data Analysis</h3><p>Turning raw datasets into clear findings.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 02</span><span class="card-tag">Stats</span></div>
+        <div><h3>SPSS</h3><p>Statistical testing &amp; survey analysis.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 03</span><span class="card-tag">Stats</span></div>
+        <div><h3>JASP</h3><p>Open statistical modelling &amp; analysis.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 04</span><span class="card-tag">Stats</span></div>
+        <div><h3>MATLAB</h3><p>Numerical computing &amp; modelling.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 05</span><span class="card-tag">Code</span></div>
+        <div><h3>Python</h3><p>Scripting, automation &amp; analysis.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 06</span><span class="card-tag">Code</span></div>
+        <div><h3>C++</h3><p>Core programming fundamentals.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 07</span><span class="card-tag">Web</span></div>
+        <div><h3>Website Development</h3><p>Building &amp; shipping web projects.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 08</span><span class="card-tag">Cloud</span></div>
+        <div><h3>Cloud Computing</h3><p>ALX Africa-trained cloud fundamentals.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 09</span><span class="card-tag">Security</span></div>
+        <div><h3>Cyber Security</h3><p>Diploma-level security foundations.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 10</span><span class="card-tag">Engineering</span></div>
+        <div><h3>ANSYS</h3><p>Simulation &amp; engineering analysis.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-no">No. 11</span><span class="card-tag">Engineering</span></div>
+        <div><h3>CAD</h3><p>Computer-aided design &amp; drafting.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fieldwork">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="index-no">§ 03 — Fieldwork</span>
+      <h2>Achievements</h2>
+      <p class="section-sub">Moments from the record — training, research and milestones.</p>
+    </div>
+    <div class="field-grid reveal">
+      <div class="field-item">
+        <div class="field-photo">
+          <img src="alx.jpg" alt="At ALX Africa training programme">
+          <span class="field-tag">ALX Africa</span>
+        </div>
+        <div class="field-cap">
+          <h4>Tech Career Training</h4>
+          <p>Completed ALX Africa's programme covering Cloud Computing, Cybersecurity and Python Programming.</p>
+        </div>
+      </div>
+      <div class="field-item">
+        <div class="field-photo">
+          <img src="research.jpg" alt="Collecting data during bachelor's degree research">
+          <span class="field-tag">Fieldwork</span>
+        </div>
+        <div class="field-cap">
+          <h4>Research Data Collection</h4>
+          <p>Fieldwork for my final-year Bachelor's research, gathering primary data on site.</p>
+        </div>
+      </div>
+      <div class="field-item">
+        <div class="field-photo">
+          <img src="graduation.jpg" alt="Graduation day">
+          <span class="field-tag">Graduation</span>
+        </div>
+        <div class="field-cap">
+          <h4>B.Sc. Applied Statistics</h4>
+          <p>Graduated from Maasai Mara University with a degree in Applied Statistics (with Computing).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="index-no">§ 04 — Record</span>
+      <h2>Education &amp; Certifications</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tline-row">
+        <div class="tline-mark">DEGREE</div>
+        <div>
+          <h4>B.Sc. Applied Statistics (with Computing)</h4>
+          <p>Maasai Mara University</p>
+        </div>
+      </div>
+      <div class="tline-row">
+        <div class="tline-mark">DIPLOMA</div>
+        <div>
+          <h4>Diploma in Cyber Security</h4>
+          <p>Foundational training in security principles &amp; practice.</p>
+        </div>
+      </div>
+      <div class="tline-row">
+        <div class="tline-mark">ALX · 01</div>
+        <div>
+          <h4>Cloud Computing Programme</h4>
+          <p>ALX Africa</p>
+        </div>
+      </div>
+      <div class="tline-row">
+        <div class="tline-mark">ALX · 02</div>
+        <div>
+          <h4>Cyber Security Programme</h4>
+          <p>ALX Africa</p>
+        </div>
+      </div>
+      <div class="tline-row">
+        <div class="tline-mark">ALX · 03</div>
+        <div>
+          <h4>Python Programming Programme</h4>
+          <p>ALX Africa</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="index-no">§ 05 — Correspondence</span>
+    <h2>Let's talk</h2>
+    <p class="section-sub">Open to opportunities in data analysis, cybersecurity and cloud. Reach me here:</p>
+    <div class="contact-links">
+      <a class="clink" href="mailto:Jerryvantisha@gmail.com">Email</a>
+      <a class="clink" href="https://wa.me/+254745145515" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="clink" href="tel:+254745145515" target="_blank" rel="noopener">Call</a>
+      <a class="clink" href="https://twitter.com/l_rashan" target="_blank" rel="noopener">X / Twitter</a>
+      <a class="clink" href="https://github.com/Rashan006" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Field Catalog — Portfolio of Rashan L Barack · Built with care
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
